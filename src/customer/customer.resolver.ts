@@ -9,6 +9,6 @@ export class CustomerResolver {
 
   @Query(() => [Customer])
   async customers(@Args('data') { skip, take, where }: GetCustomerInput) {
-    return this.customerService.findAll({ skip, take, where });
+    return await this.customerService.findAll({ skip, take, where });
   }
 }

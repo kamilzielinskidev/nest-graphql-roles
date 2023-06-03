@@ -41,3 +41,5 @@ junit.xml
 
 .env.dev
 .env.test
+
+notes.md
