@@ -10,7 +10,8 @@
           "introspectComments": true,
           "classValidatorShim": true
         }
-      }
+      },
+      "@nestjs/graphql"
     ]
   }
 }

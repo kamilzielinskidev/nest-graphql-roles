@@ -2,15 +2,12 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Customer {
+type ObjectCustomer {
   id: ID!
-
-  """Date and time when object was created."""
   createdAt: Timestamp!
-
-  """Date and time when the object was updated last time."""
   updatedAt: Timestamp!
   email: String!
+  password: String!
 }
 
 """
@@ -18,20 +15,49 @@ type Customer {
 """
 scalar Timestamp
 
+input InputCustomer {
+  email: String!
+  password: String!
+}
+
 type Query {
-  customers(data: GetCustomerInput!): [Customer!]!
+  customer(data: CustomerFindUnique!): ObjectCustomer!
+  customers(data: CustomersFindMany!): [ObjectCustomer!]!
 }
 
-input GetCustomerInput {
-  cursor: String
-  skip: Int
-  take: Int
-  where: WhereCustomerInput
+input CustomerFindUnique {
+  where: CustomerWhereUniqueInput!
 }
 
-input WhereCustomerInput {
-  id: String
+input CustomerWhereUniqueInput {
+  id: ID
   email: String
+}
+
+input CustomersFindMany {
+  cursor: CustomerWhereInput
+  skip: Float
+  take: Float
+  where: CustomerWhereInput!
+}
+
+input CustomerWhereInput {
+  id: ID
   createdAt: Timestamp
   updatedAt: Timestamp
+  email: String
+  password: String
+}
+
+type Mutation {
+  createCustomer(data: CustomerCreate!): ObjectCustomer!
+}
+
+input CustomerCreate {
+  data: CustomerCreateInput!
+}
+
+input CustomerCreateInput {
+  email: String!
+  password: String!
 }

@@ -13,7 +13,7 @@ There is some key features that must be implemented in the recruitment task:
 
 - access token;
 
-- refresh token;
+  - refresh token;
 
 - restrict access to get customers operation from unauthenticated users;
 
@@ -34,7 +34,8 @@ npx prisma generate
 
 ```bash
 # Setup local postgres
-docker run --name recruitment-task -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres:11.16
+docker run --name recruitment-task -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
+docker run --name adminer -p 5433:8080 -d adminer
 
 #create .env file with your local database credentials
 

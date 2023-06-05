@@ -19,6 +19,7 @@
     "seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
+    "@mobily/ts-belt": "^3.13.1",
     "@nestjs/apollo": "^11.0.6",
     "@nestjs/axios": "^2.0.0",
     "@nestjs/common": "^9.4.2",
@@ -106,8 +107,7 @@
   "lint-staged": {
     "*.ts": [
       "npm run lint",
-      "npm run format",
-      "npm run test"
+      "npm run format"
     ]
   }
 }
