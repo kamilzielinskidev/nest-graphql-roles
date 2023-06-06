@@ -21,27 +21,23 @@ input InputCustomer {
 }
 
 type Query {
-  customer(data: CustomerFindUnique!): ObjectCustomer!
-  customers(data: CustomersFindMany!): [ObjectCustomer!]!
+  customer(data: WhereUniqueCustomer!): ObjectCustomer!
+  customers(data: FindManyCustomers!): [ObjectCustomer!]!
 }
 
-input CustomerFindUnique {
-  where: CustomerWhereUniqueInput!
-}
-
-input CustomerWhereUniqueInput {
+input WhereUniqueCustomer {
   id: ID
   email: String
 }
 
-input CustomersFindMany {
-  cursor: CustomerWhereInput
+input FindManyCustomers {
+  cursor: WhereCustomer
   skip: Float
   take: Float
-  where: CustomerWhereInput!
+  where: WhereCustomer!
 }
 
-input CustomerWhereInput {
+input WhereCustomer {
   id: ID
   createdAt: Timestamp
   updatedAt: Timestamp
@@ -50,14 +46,11 @@ input CustomerWhereInput {
 }
 
 type Mutation {
-  createCustomer(data: CustomerCreate!): ObjectCustomer!
+  createCustomer(data: CreateCustomer!): ObjectCustomer!
+  deleteCustomer(data: WhereUniqueCustomer!): ObjectCustomer!
 }
 
-input CustomerCreate {
-  data: CustomerCreateInput!
-}
-
-input CustomerCreateInput {
+input CreateCustomer {
   email: String!
   password: String!
 }

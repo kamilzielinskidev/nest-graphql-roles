@@ -2,12 +2,12 @@ import { InputType, PartialType } from '@nestjs/graphql';
 import { Customer } from '../models/customer.model';
 
 @InputType()
-class CustomerWhereInput extends PartialType(Customer) {}
+class WhereCustomer extends PartialType(Customer) {}
 
 @InputType()
-export class CustomersFindMany {
-  cursor?: CustomerWhereInput;
+export class FindManyCustomers {
+  cursor?: WhereCustomer;
   skip?: number;
   take?: number;
-  where: CustomerWhereInput;
+  where: WhereCustomer;
 }

@@ -1,10 +1,8 @@
 import { InputType, PickType } from '@nestjs/graphql';
+import { z } from 'zod';
 import { Customer } from '../models/customer.model';
 
-@InputType()
-export class CustomerCreateInput extends PickType(Customer, ['email', 'password']) {}
+export const createCustomerSchema = z.object({ email: z.string().email(), password: z.string().min(12) });
 
 @InputType()
-export class CustomerCreate {
-  data: CustomerCreateInput;
-}
+export class CreateCustomer extends PickType(Customer, ['email', 'password']) {}

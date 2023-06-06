@@ -1,5 +1,5 @@
 import { InputType, ObjectType } from '@nestjs/graphql';
-import { Base } from 'lib/entities/base.entity';
+import { Base } from 'src/common/models/base.entity';
 
 @InputType('InputCustomer')
 @ObjectType('ObjectCustomer')

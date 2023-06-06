@@ -1,36 +1,38 @@
-import { G } from '@mobily/ts-belt';
-import { HttpException, HttpStatus } from '@nestjs/common';
+import { UsePipes } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Customer } from 'src/features/customer/models/customer.model';
+import { ZodValidationPipe } from '../../common/pipes/zod-validation.pipe';
 import { CustomerService } from './customer.service';
-import { CustomerCreate } from './dto/create-customer.input';
-import { CustomerFindUnique } from './dto/customer.input';
-import { CustomersFindMany } from './dto/customers.input';
+import { CreateCustomer, createCustomerSchema } from './dto/create-customer.input';
+import { FindManyCustomers } from './dto/find-many-customers.input';
+import { WhereUniqueCustomer, whereUniqueSchemaCustomer } from './dto/where-unique-customer.input';
 
-@Resolver(() => Customer)
+@Resolver()
 export class CustomerResolver {
   constructor(private readonly customerService: CustomerService) {}
 
   @Query(() => Customer)
-  async customer(@Args('data') args: CustomerFindUnique) {
-    const {
-      where: { id, email },
-    } = args;
-
-    if (G.isNullable(id) && G.isNullable(email)) {
-      throw new HttpException('Id or email required.', HttpStatus.BAD_REQUEST);
-    }
-
+  @UsePipes(new ZodValidationPipe(whereUniqueSchemaCustomer))
+  async customer(
+    @Args('data')
+    args: WhereUniqueCustomer,
+  ) {
     return await this.customerService.findOne(args);
   }
 
   @Query(() => [Customer])
-  async customers(@Args('data') args: CustomersFindMany) {
+  async customers(@Args('data') args: FindManyCustomers) {
     return await this.customerService.findAll(args);
   }
 
   @Mutation(() => Customer)
-  async createCustomer(@Args('data') args: CustomerCreate) {
+  @UsePipes(new ZodValidationPipe(createCustomerSchema))
+  async createCustomer(@Args('data') args: CreateCustomer) {
     return await this.customerService.createOne(args);
+  }
+
+  @Mutation(() => Customer)
+  async deleteCustomer(@Args('data') args: WhereUniqueCustomer) {
+    return await this.customerService.deleteOne(args);
   }
 }
