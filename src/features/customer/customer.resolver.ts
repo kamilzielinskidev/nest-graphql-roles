@@ -1,9 +1,8 @@
 import { UsePipes } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { ZodValidationPipe } from 'src/common/pipes/zod-validation.pipe';
 import { Customer } from 'src/features/customer/models/customer.model';
-import { ZodValidationPipe } from '../../common/pipes/zod-validation.pipe';
 import { CustomerService } from './customer.service';
-import { CreateCustomer, createCustomerSchema } from './dto/create-customer.input';
 import { FindManyCustomers } from './dto/find-many-customers.input';
 import { WhereUniqueCustomer, whereUniqueSchemaCustomer } from './dto/where-unique-customer.input';
 
@@ -23,12 +22,6 @@ export class CustomerResolver {
   @Query(() => [Customer])
   async customers(@Args('data') args: FindManyCustomers) {
     return await this.customerService.findAll(args);
-  }
-
-  @Mutation(() => Customer)
-  @UsePipes(new ZodValidationPipe(createCustomerSchema))
-  async createCustomer(@Args('data') args: CreateCustomer) {
-    return await this.customerService.createOne(args);
   }
 
   @Mutation(() => Customer)

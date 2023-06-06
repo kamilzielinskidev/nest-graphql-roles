@@ -46,11 +46,5 @@ input WhereCustomer {
 }
 
 type Mutation {
-  createCustomer(data: CreateCustomer!): ObjectCustomer!
   deleteCustomer(data: WhereUniqueCustomer!): ObjectCustomer!
-}
-
-input CreateCustomer {
-  email: String!
-  password: String!
 }
