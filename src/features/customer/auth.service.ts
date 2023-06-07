@@ -4,26 +4,16 @@ import { BcryptService } from 'lib/bcrypt/bcrypt.service';
 import { JwtService } from 'lib/jwt/jwt.service';
 import { PrismaService } from 'lib/prisma/prisma.service';
 import { CreateAuth } from './dto/create-auth.input';
-import { FindManyCustomers } from './dto/find-many-customers.input';
-import { WhereUniqueCustomer } from './dto/where-unique-customer.input';
 
 @Injectable()
-export class CustomerService {
+export class AuthService {
   constructor(
     private readonly prismaService: PrismaService,
     private readonly jwtService: JwtService,
     private readonly bcryptService: BcryptService,
   ) {}
 
-  async findOne(input: WhereUniqueCustomer) {
-    return await this.prismaService.customer.findUnique({ where: input });
-  }
-
-  async findAll(input: FindManyCustomers) {
-    return await this.prismaService.customer.findMany(input);
-  }
-
-  async createOne(input: CreateAuth) {
+  async registerOne(input: CreateAuth) {
     const customer = await this.prismaService.customer.findUnique({ where: { email: input.email } });
 
     if (G.isNotNullable(customer)) {
@@ -53,9 +43,5 @@ export class CustomerService {
     }
 
     return this.jwtService.sign({ id });
-  }
-
-  async deleteOne(input: WhereUniqueCustomer) {
-    return await this.prismaService.customer.delete({ where: input });
   }
 }
