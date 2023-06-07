@@ -9,6 +9,7 @@ import { CustomerModule } from './features/customer/customer.module';
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
+      // these options are passed to apollo server, check their docs for more info
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       buildSchemaOptions: {

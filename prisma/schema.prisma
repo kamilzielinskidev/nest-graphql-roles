@@ -23,4 +23,5 @@ model Customer {
 enum Role {
   USER
   ADMIN
+  UNAUTHENTICATED
 }

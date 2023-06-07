@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { EnvsModule } from '../../features/envs/envs.module';
+import { EnvsModule } from 'features/envs/envs.module';
 import { JwtService } from './jwt.service';
 
 @Module({

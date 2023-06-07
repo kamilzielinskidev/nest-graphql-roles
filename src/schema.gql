@@ -8,6 +8,7 @@ type ObjectCustomer {
   updatedAt: Timestamp!
   email: String!
   password: String!
+  role: Role!
 }
 
 """
@@ -15,12 +16,20 @@ type ObjectCustomer {
 """
 scalar Timestamp
 
+enum Role {
+  USER
+  ADMIN
+  UNAUTHENTICATED
+}
+
 input InputCustomer {
   email: String!
   password: String!
+  role: Role!
 }
 
 type Query {
+  me: ObjectCustomer!
   customer(data: WhereUniqueCustomer!): ObjectCustomer!
   customers(data: FindManyCustomers!): [ObjectCustomer!]!
 }
@@ -43,6 +52,7 @@ input WhereCustomer {
   updatedAt: Timestamp
   email: String
   password: String
+  role: Role
 }
 
 type Mutation {

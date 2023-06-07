@@ -12,7 +12,9 @@
     "baseUrl": "./",
     "paths": {
       "src/*": ["src/*"],
-      "lib/*": ["src/lib/*"]
+      "lib/*": ["src/lib/*"],
+      "common/*": ["src/common/*"],
+      "features/*": ["src/features/*"]
     },
     "incremental": true,
     "skipLibCheck": true,
