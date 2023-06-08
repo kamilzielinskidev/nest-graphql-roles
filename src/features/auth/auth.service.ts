@@ -4,6 +4,7 @@ import { BcryptService } from 'lib/bcrypt/bcrypt.service';
 import { JwtService } from 'lib/jwt/jwt.service';
 import { PrismaService } from 'lib/prisma/prisma.service';
 import { CreateAuth } from './dto/create-auth.input';
+import * as Role from '../customer/models/role';
 
 @Injectable()
 export class AuthService {
@@ -22,11 +23,11 @@ export class AuthService {
 
     const hashedPassword = this.bcryptService.hash(input.password);
 
-    const { id } = await this.prismaService.customer.create({
+    const { id, role } = await this.prismaService.customer.create({
       data: { email: input.email, password: hashedPassword },
     });
 
-    return this.jwtService.sign({ id });
+    return this.jwtService.sign({ id, role: Role.from(role) });
   }
 
   async authenticateOne(input: CreateAuth) {
@@ -36,12 +37,12 @@ export class AuthService {
       throw new BadRequestException('Bad request');
     }
 
-    const { id, password } = customer;
+    const { id, password, role } = customer;
 
     if (!this.bcryptService.compare(input.password, password)) {
       throw new BadRequestException('Bad request');
     }
 
-    return this.jwtService.sign({ id });
+    return this.jwtService.sign({ id, role: Role.from(role) });
   }
 }

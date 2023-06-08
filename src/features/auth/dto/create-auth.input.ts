@@ -1,6 +1,6 @@
 import { InputType, PickType } from '@nestjs/graphql';
 import { z } from 'zod';
-import { Customer } from '../models/customer.model';
+import { Customer } from '../../customer/models/customer.model';
 
 export const createAuthSchema = z.object({ email: z.string().email(), password: z.string().min(12) });
 

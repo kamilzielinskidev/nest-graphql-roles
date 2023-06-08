@@ -3,8 +3,8 @@ import { ZodValidationPipe } from 'common/pipes/zod-validation.pipe';
 import { AuthService } from './auth.service';
 import { CreateAuth, createAuthSchema } from './dto/create-auth.input';
 
-@Controller('customer')
-export class CustomerController {
+@Controller('auth')
+export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('register')

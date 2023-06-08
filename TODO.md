@@ -1,4 +1,3 @@
+- password field protection
 - testy
 - configurable initial admin account
-- user role in JWT maybe?
-- separate auth module
